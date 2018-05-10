@@ -18,7 +18,7 @@ namespace arm_pointcloud_utilities
         arc_utilities::SerializeString(frame, buffer);
 
         // Serialize the points
-        arc_utilities::SerializeEigenType<Eigen::Matrix3Xf>(points, buffer);
+        arc_utilities::SerializeEigen(points, buffer);
 
         // Determine how many bytes were written
         const size_t bytes_written = buffer.size() - starting_size;
@@ -37,7 +37,7 @@ namespace arm_pointcloud_utilities
         current_position += frame_deserialized.second;
 
         // Read in the points
-        const auto points_deserialized = arc_utilities::DeserializeEigenType<Eigen::Matrix3Xf>(buffer, current_position);
+        const auto points_deserialized = arc_utilities::DeserializeEigen<Eigen::Matrix3Xf>(buffer, current_position);
         const Eigen::Matrix3Xf& points = points_deserialized.first;
         current_position += points_deserialized.second;
 
